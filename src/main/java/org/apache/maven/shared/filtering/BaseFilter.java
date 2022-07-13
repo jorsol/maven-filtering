@@ -32,7 +32,6 @@ import java.util.TreeSet;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.settings.Settings;
-import org.codehaus.plexus.interpolation.InterpolationPostProcessor;
 import org.codehaus.plexus.interpolation.Interpolator;
 import org.codehaus.plexus.interpolation.PrefixAwareRecursionInterceptor;
 import org.codehaus.plexus.interpolation.PrefixedObjectValueSource;
@@ -317,19 +316,9 @@ class BaseFilter
 
         if ( escapeWindowsPaths )
         {
-            interpolator.addPostProcessor( new InterpolationPostProcessor()
-            {
-                @Override
-                public Object execute( String expression, Object value )
-                {
-                    if ( value instanceof String )
-                    {
-                        return FilteringUtils.escapeWindowsPath( (String) value );
-                    }
-
-                    return value;
-                }
-            } );
+            interpolator.addPostProcessor( ( expression, value ) ->
+                ( value instanceof String ) ? FilteringUtils.escapeWindowsPath( ( String ) value ) : value
+            );
         }
         return interpolator;
     }

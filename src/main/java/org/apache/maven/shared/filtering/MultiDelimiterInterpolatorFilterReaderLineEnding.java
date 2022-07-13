@@ -189,7 +189,7 @@ public class MultiDelimiterInterpolatorFilterReaderLineEnding
      * @throws IOException If an I/O error occurs
      */
     @Override
-    public int read( char cbuf[], int off, int len )
+    public int read( char[] cbuf, int off, int len )
         throws IOException
     {
         for ( int i = 0; i < len; i++ )

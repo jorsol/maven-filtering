@@ -198,13 +198,13 @@ public final class PropertyUtils
 
         String v = p.getProperty( k );
         String defaultValue = v;
-        String ret = "";
+        StringBuilder ret = new StringBuilder();
         int idx, idx2;
 
         while ( ( idx = v.indexOf( "${" ) ) >= 0 )
         {
             // append prefix to result
-            ret += v.substring( 0, idx );
+            ret.append( v, 0, idx );
 
             // strip prefix from original
             v = v.substring( idx + 2 );
@@ -247,7 +247,7 @@ public final class PropertyUtils
                 // taking recursion into account.
                 if ( nv == null || nv.equals( k ) || k.equals( nk ) )
                 {
-                    ret += "${" + nk + "}";
+                    ret.append( "${" ).append( nk ).append( "}" );
                 }
                 else
                 {

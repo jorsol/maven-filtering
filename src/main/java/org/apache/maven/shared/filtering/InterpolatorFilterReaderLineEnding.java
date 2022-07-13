@@ -160,7 +160,7 @@ public class InterpolatorFilterReaderLineEnding
      * @throws IOException If an I/O error occurs
      */
     @Override
-    public int read( char cbuf[], int off, int len )
+    public int read( char[] cbuf, int off, int len )
         throws IOException
     {
         for ( int i = 0; i < len; i++ )
@@ -347,10 +347,7 @@ public class InterpolatorFilterReaderLineEnding
             }
             catch ( InterpolationException e )
             {
-                IllegalArgumentException error = new IllegalArgumentException( e.getMessage() );
-                error.initCause( e );
-
-                throw error;
+                throw  new IllegalArgumentException( e.getMessage(), e );
             }
         }
 
